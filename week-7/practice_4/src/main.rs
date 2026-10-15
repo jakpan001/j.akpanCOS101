@@ -1,17 +1,23 @@
+use std::io;
+
+fn add(a: i32, b: i32) {
+    let sum = a + b;
+
+    println!("Sum of A and B = {}", sum);
+}
+
 fn main() {
 
-    // Name vector
-    let name = vec!["Mary","Sam","Sally","Greg","Ade","Mark","June","Ife"];
+    let mut input1 = String::new();
+    println!("Enter input for parameter A:");
+    io::stdin().read_line(&mut input1).expect("Failed to read input");
+    let a: i32 = input1.trim().parse().expect("Invalid input");
 
-    //Age vector
-    let age = vec![16,17,19,22,20,21,18,23];
+    let mut input2 = String::new();
+    println!("Enter input for parameter B:");
+    io::stdin().read_line(&mut input2).expect("Failed to read input");
+    let b: i32 = input2.trim().parse().expect("Invalid input");
 
-    print!("\nAge allocation:\n");
-
-    //loop to iterate elements in vector
-    for i in 0..age.len()
-    {
-        // iterating through i on the vector
-        print!("{} is {} years old\n",name[i],age[i]);
-    }
+    // call add function with arguments
+    add(a, b);
 }

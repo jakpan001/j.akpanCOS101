@@ -1,12 +1,10 @@
-fn main() {
-    // Create two vectors
-    let v = vec![1, 2, 3, 4, 5, 6, 7, 8];
-    let x = vec![5, 6, 7, 8, 9, 10, 11];
+fn main(){
+    let mut num:i32 = 5;
+    mutate_num_to_zero(&mut num);
+    println!("The value of num is:{}",num);
+}
 
-    // Use a for loop to add the elements of the vectors pairwise.
-    // x has 7 elements, so 0..6 keeps us safely inside both vectors.
-    for index in 0..6 {
-        let sum = v[index] + x[index];
-        println!("{:?}", sum);
-    }
+fn mutate_num_to_zero(param_num:&mut i32){
+    *param_num = *param_num*0; //de reference
+    println!("param_num value is :{}",param_num);
 }

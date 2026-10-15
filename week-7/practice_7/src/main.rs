@@ -1,18 +1,21 @@
-fn main() {
-    // initialization of a tuple with data types
-    let datatype_tuple: (&str, f32, u8) = ("Rust", 3.14, 100);
-    println!("Tuple contents = {:?}", datatype_tuple);
+fn main(){
 
-    // initialization of a tuple without data types (inferred)
-    let no_datatype_tuple = ("Rust", "fun", 100);
-    println!("Tuple contents = {:?}", no_datatype_tuple);
+    // Array with data type (explicit integer datatype)
+    let arr1:[i32;4] = [10,20,30,40];
+    println!("\nArray with data type");
+    println!("array is {:?}",arr1);
+    println!("array size is :{}",arr1.len());
 
-    // accessing the tuple element at index 0
-    println!("Value at Index 0 = {}", datatype_tuple.0);
+    // Array without data type (implicit float datatype)
+    let arr2 = [10.4,20.7,30.4,40.9,51.2,72.2];
+    println!("\nArray without data type");
+    println!("array is {:?}",arr2);
+    println!("array size is :{}",arr2.len());
 
-    // accessing the tuple element at index 1
-    println!("Value at Index 1 = {}", datatype_tuple.1);
-
-    // accessing the tuple element at index 2
-    println!("Value at Index 2 = {}", datatype_tuple.2);
+    // Array with default values that creates and
+    // initializes all its elements with a default value of -1.
+    let arr3:[i32;8] = [-1;8];
+    println!("\nArray with default values");
+    println!("array is {:?}",arr3);
+    println!("array size is :{}",arr3.len());
 }

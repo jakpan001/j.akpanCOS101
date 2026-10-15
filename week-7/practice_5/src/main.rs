@@ -1,30 +1,10 @@
-fn main() {
-    // Create an empty vector "city"
-    let mut city: Vec<String> = Vec::new();
+fn main(){
+    let num:i32 = 5;
+    mutate_num_to_zero(num);
+    println!("The value of no is:{}",num);
+}
 
-    // Print the size of the City vector
-    println!("The City vector has element {}", city.len());
-
-    // Push new elements into it
-    let mut input1 = String::new();
-    println!("How many Cities do you want to enter");
-    std::io::stdin().read_line(&mut input1).expect("Failed to read input");
-    let city_num: i32 = input1.trim().parse().expect("Invalid input");
-
-    for count in 0..city_num {
-        let mut input2 = String::new();
-        println!("Enter City {}", count + 1);
-        std::io::stdin().read_line(&mut input2).expect("Failed to read input");
-        let new_city: String = input2.trim().parse().expect("Invalid input");
-        city.push(new_city);
-    }
-
-    print!("Your preferred cities are:\n");
-    let mut count = 1;
-
-    // loop to iterate over the elements in the vector
-    for i in city {
-        println!("{} {}", count, i);
-        count += 1;
-    }
+fn mutate_num_to_zero(mut param_num: i32) {
+    param_num = param_num*0;
+    println!("param_num value is :{}",param_num);
 }

@@ -1,99 +1,70 @@
-use std::f64::consts::PI;
-use std::io::{self, Write};
-
-// Prompts the user and keeps asking until a valid non-negative number is entered.
-fn read_number(prompt: &str) -> f64 {
-    loop {
-        print!("{}", prompt);
-        io::stdout().flush().expect("Failed to flush stdout");
-
-        let mut input = String::new();
-        io::stdin()
-            .read_line(&mut input)
-            .expect("Failed to read input");
-
-        match input.trim().parse::<f64>() {
-            Ok(n) if n >= 0.0 => return n,
-            _ => println!("Invalid input. Please enter a non-negative number."),
-        }
-    }
-}
-
-// Trapezium, area = height / 2 * (base1 + base2)
-fn trapezium_area(height: f64, base1: f64, base2: f64) -> f64 {
-    height / 2.0 * (base1 + base2)
-}
-
-// Rhombus, area = 1/2 * diagonal1 * diagonal2
-fn rhombus_area(diagonal1: f64, diagonal2: f64) -> f64 {
-    0.5 * diagonal1 * diagonal2
-}
-
-// Parallelogram, area = base * altitude
-fn parallelogram_area(base: f64, altitude: f64) -> f64 {
-    base * altitude
-}
-
-// Cube, surface area = 6 * side * side
-fn cube_surface_area(side: f64) -> f64 {
-    6.0 * side * side
-}
-
-// Cylinder, volume = pi * radius * radius * height
-fn cylinder_volume(radius: f64, height: f64) -> f64 {
-    PI * radius * radius * height
-}
+use std::io;
 
 fn main() {
-    println!("=== Shape Calculator ===");
+    // print the menu
+    println!("Good day Ma/Sir, Welcome to K.J Restaurant");
+    println!("What can we offer you Today?");
+    println!("Take a look at our menu and place your order");
+    println!("              K.J Restaurant Menu           ");
+    println!("{:<6} {:<30} {:>8}", "Codes", "Food", "Prices");
+    println!("{:<6} {:<30} {:>8}", "P", "Poundo Yam / Edikang Ikong", "N3,200");
+    println!("{:<6} {:<30} {:>8}", "F", "Fried Rice & Chicken", "N3,000");
+    println!("{:<6} {:<30} {:>8}", "A", "Amala & Ewedu Soup", "N2,500");
+    println!("{:<6} {:<30} {:>8}", "E", "Eba & Egusi Soup", "N2,000");
+    println!("{:<6} {:<30} {:>8}", "W", "White Rice & Stew", "N2,500");
+
+    let mut total: u32 = 0;
 
     loop {
-        println!("\nChoose a shape:");
-        println!("1. Trapezium (area)");
-        println!("2. Rhombus (area)");
-        println!("3. Parallelogram (area)");
-        println!("4. Cube (surface area)");
-        println!("5. Cylinder (volume)");
-        println!("6. Quit");
-        print!("Enter your choice (1-6): ");
-        io::stdout().flush().expect("Failed to flush stdout");
-
+        // ask for the food code
         let mut choice = String::new();
-        io::stdin()
-            .read_line(&mut choice)
-            .expect("Failed to read input");
+        println!("Enter food code (or D when done): ");
+        io::stdin().read_line(&mut choice).expect("Failed to read input");
+        let choice = choice.trim().to_uppercase();
 
-        match choice.trim() {
-            "1" => {
-                let height = read_number("Enter height: ");
-                let base1 = read_number("Enter base1: ");
-                let base2 = read_number("Enter base2: ");
-                println!("Area of trapezium = {:.2}", trapezium_area(height, base1, base2));
-            }
-            "2" => {
-                let d1 = read_number("Enter diagonal1: ");
-                let d2 = read_number("Enter diagonal2: ");
-                println!("Area of rhombus = {:.2}", rhombus_area(d1, d2));
-            }
-            "3" => {
-                let base = read_number("Enter base: ");
-                let altitude = read_number("Enter altitude: ");
-                println!("Area of parallelogram = {:.2}", parallelogram_area(base, altitude));
-            }
-            "4" => {
-                let side = read_number("Enter side length: ");
-                println!("Surface area of cube = {:.2}", cube_surface_area(side));
-            }
-            "5" => {
-                let radius = read_number("Enter radius: ");
-                let height = read_number("Enter height: ");
-                println!("Volume of cylinder = {:.2}", cylinder_volume(radius, height));
-            }
-            "6" => {
-                println!("Goodbye!");
-                break;
-            }
-            _ => println!("Invalid choice. Please enter a number from 1 to 6."),
+        if choice == "D" {
+            break;
         }
+
+        // decide the price
+        let price: u32 = match choice.as_str() {
+            "P" => 3200,
+            "F" => 3000,
+            "A" => 2500,
+            "E" => 2000,
+            "W" => 2500,
+            _ => {
+                println!("Invalid food code! Try again.");
+                continue;
+            }
+        };
+
+        // ask for the quantity
+        let mut qty_input = String::new();
+        println!("Enter quantity: ");
+        io::stdin().read_line(&mut qty_input).expect("Failed to read input");
+
+        let quantity: u32 = match qty_input.trim().parse() {
+            Ok(n) => n,
+            Err(_) => {
+                println!("Please enter a valid number.");
+                continue;
+            }
+        };
+
+        total += price * quantity;
+        println!("Current total: N{}", total);
+    } // <-- the loop now ends here
+
+    // apply the discount after the loop
+    let mut final_total = total as f64;
+
+    if total > 10000 {
+        let discount = final_total * 0.05;
+        println!("Discount (5%): N{:.2}", discount);
+        final_total -= discount;
     }
+
+    println!("Total to pay: N{:.2}", final_total);
+    println!("Do Have a great day and Enjoy your meal");
 }
